@@ -13,9 +13,9 @@ int main(__attribute__((unused)) int argc,
     cmd += argv[i];
   }
 
-  std::vector<std::string> lines;
+  std::vector<std::string> lines, errlines;
   Process p;
-  if (!p.Run(cmd, lines)) {
+  if (!p.Run(cmd, lines, errlines)) {
     for (auto str : lines)
       std::cout << str << std::endl;
   }

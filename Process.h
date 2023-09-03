@@ -9,7 +9,10 @@ class Process
 public:
   Process() { }
   ~Process() { }
-  int Run(const std::string cmd, std::vector<std::string>& output);
+  int Run(const std::string cmd,
+          std::vector<std::string>& out,
+          std::vector<std::string>& err,
+          const bool searchPath = true);
   std::string GetLastErr() const { return m_LastErr; }
 private:
   Process(Process const&) = delete;

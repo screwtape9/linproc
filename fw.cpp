@@ -2,6 +2,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include "Process.h"
@@ -9,11 +10,11 @@
 static bool GetFWVersion(uint16_t vid, uint16_t pid, std::string& fw)
 {
   char cmd[512] = { '\0' };
-  snprintf(cmd, sizeof(cmd), "/usr/bin/lsusb -vd %04x:%04x", vid, pid);
+  snprintf(cmd, sizeof(cmd), "lsusb -vd %04x:%04x", vid, pid);
 
-  std::vector<std::string> lines;
+  std::vector<std::string> lines, errlines;
   Process p;
-  if (!p.Run(cmd, lines)) {
+  if (!p.Run(cmd, lines, errlines)) {
     for (auto const& line : lines) {
       if (line.find("bcdDevice") != std::string::npos) {
         std::istringstream ss(line);
